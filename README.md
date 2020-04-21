@@ -1,0 +1,2 @@
+# QDataTableSQL
+sql test plugin
