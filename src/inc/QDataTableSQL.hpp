@@ -6,6 +6,7 @@
 # include <QWidget>
 # include <QFrame>
 # include <QLabel>
+# include <QResizeEvent>
 # include <QMouseEvent>
 # include <QtUiPlugin/QDesignerExportWidget>
 
@@ -20,11 +21,15 @@ public:
     QSize sizeHint()        const override;
     
 protected:
-    void mousePressEvent(QMouseEvent * event) override;
+    void mousePressEvent(QMouseEvent  * event) override;
+    void resizeEvent    (QResizeEvent * event) override;
     
 private:
-    uint8_t pix_w = 42;
-    uint8_t pix_h = 42;
+    inline uint8_t getControlWidth () const { return static_cast<uint8_t>(pix_w); }
+    inline uint8_t getControlHeight() const { return static_cast<uint8_t>(pix_h); }
+    
+    static uint8_t pix_w;
+    static uint8_t pix_h;
 };
 
 #endif
