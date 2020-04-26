@@ -26,8 +26,8 @@
 // SOFTWARE.
 // --------------------------------------------------------------------------------
 
-#ifndef QDataTablePropertySheetWidget_HPP
-#define QDataTablePropertySheetWidget_HPP
+#ifndef QDataTablePropertySheetExtensionWidget_HPP
+#define QDataTablePropertySheetExtensionWidget_HPP
 
 #pragma once
 
@@ -36,14 +36,15 @@
 
 # include <QWidget>
 
-class QDataTablePropertySheetWidget:
+class QDataTablePropertySheetExtensionWidget:
     public QWidget
 {
     Q_OBJECT
 
 public:
-    QDataTablePropertySheetWidget(QWidget * plugin = nullptr);
+    explicit  QDataTablePropertySheetExtensionWidget(
+    QWidget * plugin = nullptr);
 };
 
-#endif  // QDataTablePropertySheetWidget_HPP
+#endif  // QDataTablePropertySheetExtensionWidget_HPP
 

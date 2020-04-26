@@ -25,7 +25,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 // --------------------------------------------------------------------------------
-# include "QDataTable.hpp"
 # include "QDataTablePropertySheetDialog.hpp"
 
 # include <QtDesigner/QDesignerFormWindowInterface>
@@ -35,10 +34,13 @@
 # include <QVBoxLayout>
 # include <QVariant>
 
-QDataTablePropertySheetDialog::QDataTablePropertySheetDialog(
-QDataTablePropertySheetDialog *dlg, QWidget * parent)
-    : QDialog(parent)
-    , propertyPage(dlg) 
+QDataTablePropertySheetDialog::
+QDataTablePropertySheetDialog(
+      QDataTablePropertySheetExtensionWidget *dlg,
+      QWidget * parent)
+    : QDialog(parent  )
+    , sheetWidget(dlg ) 
 {
+    setWindowTitle("Edit State");
 }
 

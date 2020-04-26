@@ -26,18 +26,18 @@
 // SOFTWARE.
 // --------------------------------------------------------------------------------
 
-#ifndef QDataTableTaskMenu_HPP
-#define QDataTableTaskMenu_HPP
+#ifndef QDataTableTaskMenuExtension_HPP
+#define QDataTableTaskMenuExtension_HPP
 
 # pragma once
 
 # include <QtDesigner/QDesignerTaskMenuExtension>
 # include <QtDesigner/QExtensionFactory>
 
+# include "QDataTablePropertySheetExtensionWidget.hpp"
+
 class QAction;
 class QExtensionManager;
-
-class QDataTablePropertySheetWidget;
 
 class QDataTableTaskMenuExtension :
     public QObject,
@@ -48,11 +48,18 @@ class QDataTableTaskMenuExtension :
 
 public:
     explicit QDataTableTaskMenuExtension(
-    QDataTablePropertySheetWidget * dlg ,
+    QDataTablePropertySheetExtensionWidget * dlg,
     QObject *parent);
+
+    QAction *preferredEditAction() const override;
+    QList<QAction *> taskActions() const override;
+
+private slots:
+    void editState();
     
 private:
-    QDataTablePropertySheetWidget * sheetWidget;
+    QDataTablePropertySheetExtensionWidget * sheetWidget;
+    QAction * editStateAction;
 };
 
 #endif  // QDataTableTaskMenu_HPP

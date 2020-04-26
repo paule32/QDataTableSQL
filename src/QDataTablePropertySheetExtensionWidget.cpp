@@ -26,10 +26,10 @@
 // SOFTWARE.
 // --------------------------------------------------------------------------------
 
-# include "QDataTablePropertySheetWidget.hpp"
+# include "QDataTablePropertySheetExtensionWidget.hpp"
 
-QDataTablePropertySheetWidget::
-QDataTablePropertySheetWidget(QWidget * parent)
+QDataTablePropertySheetExtensionWidget::
+QDataTablePropertySheetExtensionWidget(QWidget * parent)
     : QWidget(parent)
 {
 }

@@ -40,22 +40,22 @@ CONFIG  += c++14 	# should be the std c++
 DEFINES += BUILDTIME=\\\"$$system(date '+%H:%M:%S')\\\"
 DEFINES += BUILDDATE=\\\"$$system(date '+%Y-%m-%d')\\\"
 
-VERSION = 0.0.1 	# alpha version
+VERSION  = 0.0.1	 # alpha version
+TOPDIR   = $$system(pwd) # root/top
 
 contains(CONFIG,debug  ) {
-    WRKDIR = $$system(pwd)/src
-    OUTDIR = $$system{pwd)/debug
+    WRKDIR = $${TOPDIR}/src
+    OUTDIR = $${TOPDIR}/debug
 }
 contains(CONFIG,release) {
-    WRKDIR = $$system(pwd)/src
-    OUTDIR = $$system(pwd)/release
+    WRKDIR = $${TOPDIR}/src
+    OUTDIR = $${TOPDIR}/release
 }
 isEmpty(CONFIG) {
     CONFIG += debug
-    WRKDIR  = $$system(pwd)/src
-    OUTDIR  = $$system(pwd)/debug
+    WRKDIR  = $${TOPDIR}/src
+    OUTDIR  = $${TOPDIR}/debug
 }
-
 SRCDIR  = $${WRKDIR}		# source
 INCDIR  = $${SRCDIR}/inc 	# include
 RESDIR  = $${SRCDIR}/res 	# resource
@@ -70,23 +70,20 @@ INCLUDEPATH += $${INCDIR}
 
 TEMPLATE_DEPTH = 512	# only under linux, windows will fail
 
-QT += widgets uiplugin
-
-
 QTDIR_build {
-    PLUGIN_TYPE = designer
-    PLUGIN_CLASS_NAME = QDataTableSQLPlugin
-    load(qt_plugin)
-    CONFIG += install_ok
+PLUGIN_TYPE = designer
+PLUGIN_CLASS_NAME = QDataTableSQLPlugin
+load(qt_plugin)
+CONFIG += install_ok
 }
 else {
-    CONFIG      += plugin
-    TEMPLATE    = lib
+TEMPLATE  = lib
+CONFIG   += plugin
 
-    TARGET = $$qtLibraryTarget($$TARGET)
+TARGET = $$qtLibraryTarget($$TARGET)
 
-    target.path = $$[QT_INSTALL_PLUGINS]/designer
-    INSTALLS += target
+target.path = $$[QT_INSTALL_PLUGINS]/designer
+INSTALLS += target
 }
 
 # ------------------------------------------------------
@@ -95,13 +92,14 @@ else {
 #          So, please don't edit this macro line(s).
 # ------------------------------------------------------
 QMAKE_CLEAN += \
-    $${LIBDIR}/libQDataTableSQLPlugin.so
+    $${TOPDIR}/libQDataTableSQLPlugin.so
 
 HEADERS     = \
     $${INCDIR}/QDataTableSQL.hpp \
     $${INCDIR}/QDataTableSQLPlugin.hpp \
     $${INCDIR}/QDataTablePropertySheetExtension.hpp \
-    $${INCDIR}/QDataTablePropertySheetWidget.hpp \
+    $${INCDIR}/QDataTablePropertySheetExtensionFactory.hpp \
+    $${INCDIR}/QDataTablePropertySheetExtensionWidget.hpp \
     $${INCDIR}/QDataTablePropertySheetDialog.hpp \
     $${INCDIR}/QDataTableTaskMenuExtension.hpp \
     $${INCDIR}/QDataTableTaskMenuExtensionFactory.hpp
@@ -110,7 +108,8 @@ SOURCES     = \
     $${SRCDIR}/QDataTableSQL.cpp \
     $${SRCDIR}/QDataTableSQLPlugin.cpp \
     $${SRCDIR}/QDataTablePropertySheetExtension.cpp \
-    $${SRCDIR}/QDataTablePropertySheetWidget.cpp \
+    $${SRCDIR}/QDataTablePropertySheetExtensionFactory.cpp \
+    $${SRCDIR}/QDataTablePropertySheetExtensionWidget.cpp \
     $${SRCDIR}/QDataTablePropertySheetDialog.cpp \
     $${SRCDIR}/QDataTableTaskMenuExtension.cpp \
     $${SRCDIR}/QDataTableTaskMenuExtensionFactory.cpp

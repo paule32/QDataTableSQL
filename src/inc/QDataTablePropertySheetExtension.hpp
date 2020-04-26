@@ -30,8 +30,11 @@
 
 #pragma once
 
+#if 0
 # include <QtDesigner/QDesignerPropertySheetExtension>
 # include <QtDesigner/QExtensionFactory>
+
+# include "QDataTablePropertySheetExtensionWidget.hpp"
 
 class QAction;
 class QExtensionManager;
@@ -42,14 +45,20 @@ class QDataTablePropertySheetExtension :
 {
     Q_OBJECT
     Q_INTERFACES(QDesignerPropertySheetExtension)
-    
+
 public:
     explicit QDataTablePropertySheetExtension(
-    QDataTablePropertySheetWidget * dlg ,
+    QDataTablePropertySheetExtensionWidget * dlg,
     QObject *parent);
-
+    
+    QObject * createExtension(
+    QObject * object, const
+    QString & iid   ,
+    QObject * parent) const;
+    
 private:
-    QDataTablePropertySheetWidget * sheetWidget;
+    QDataTablePropertySheetExtensionWidget * sheetWidget = nullptr;
 };
+#endif
 
 #endif  // QDataTablePropertySheetExtension_HPP

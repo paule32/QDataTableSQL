@@ -26,18 +26,22 @@
 // SOFTWARE.
 // --------------------------------------------------------------------------------
 
-#include "QDataTablePropertySheetWidget.hpp"
-#include "QDataTablePropertySheetDialog.hpp"
-#include "QDataTableTaskMenuExtension.hpp"
+# include "QDataTablePropertySheetExtensionWidget.hpp"
+# include "QDataTablePropertySheetDialog.hpp"
 
-#include <QtDesigner/QDesignerFormEditorInterface>
-#include <QAction>
+# include "QDataTableTaskMenuExtension.hpp"
+# include "QDataTableTaskMenuExtensionFactory.hpp"
+
+# include <QtDesigner/QDesignerFormEditorInterface>
+# include <QAction>
 
 QDataTableTaskMenuExtension::
-QDataTableTaskMenuExtension(QDataTablePropertySheetWidget * dlg, QObject * parent)
-    : QObject(parent)
-    , sheetWidget(dlg)
-    , editStateAction(new QAction("About Framework"), this))
+QDataTableTaskMenuExtension(
+      QDataTablePropertySheetExtensionWidget * dlg
+    , QObject * parent)
+    : QObject(parent  )
+    , editStateAction (new QAction("About Framework", this))
+    , sheetWidget(dlg )
 {
     connect(editStateAction,
 	&QAction::triggered, this,
@@ -54,3 +58,11 @@ QDataTableTaskMenuExtension::editState()
 QAction *        QDataTableTaskMenuExtension::preferredEditAction() const { return editStateAction; }
 QList<QAction *> QDataTableTaskMenuExtension::taskActions()         const { return QList<QAction *>{editStateAction}; }
 
+#if 0
+QDataTableTaskMenuExtensionFactory::
+QDataTableTaskMenuExtensionFactory(
+      QExtensionManager *parent)
+    : QExtensionFactory (parent)
+{
+}
+#endif

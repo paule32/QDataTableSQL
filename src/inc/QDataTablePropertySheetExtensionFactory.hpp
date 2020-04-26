@@ -25,34 +25,37 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 // --------------------------------------------------------------------------------
-# include "QDataTableTaskMenuExtension.hpp"
-# include "QDataTableTaskMenuExtensionFactory.hpp"
+#ifndef QDataTablePropertySheetExtensionFactory_HPP
+#define QDataTablePropertySheetExtensionFactory_HPP
 
-# include "QDataTablePropertySheetExtension.hpp"
+#pragma once
+
+#if 0
 # include "QDataTablePropertySheetExtensionWidget.hpp"
 
-QDataTableTaskMenuExtensionFactory::
-QDataTableTaskMenuExtensionFactory(
-      QExtensionManager *parent)
-    : QExtensionFactory (parent)
-{
-}
+# include <QtDesigner/QDesignerPropertySheetExtension>
+# include <QtDesigner/QExtensionFactory>
 
-QObject *
-QDataTableTaskMenuExtensionFactory::createExtension(
+class QDataTablePropertySheetExtensionFactory :
+    public QExtensionFactory
+{
+    Q_OBJECT
+    Q_INTERFACES(QDesignerPropertySheetExtension)
+
+public:
+    explicit QDataTablePropertySheetExtensionFactory(
+    QExtensionManager *parent = nullptr);
+
+protected:
+    QObject *createExtension(
     QObject *object, const
     QString &iid,
-    QObject *parent) const
-{
-    Q_UNUSED(parent)
+    QObject *parent) const override;
     
-    if (iid != Q_TYPEID(QDesignerTaskMenuExtension))
-        return nullptr;
+private:
+    QDataTablePropertySheetExtensionWidget * sheetWidget = nullptr;
+};
+#endif
 
-    if (QDataTablePropertySheetExtensionWidget * widget = qobject_cast<
-        QDataTablePropertySheetExtensionWidget * >(object))
-        return new QDataTableTaskMenuExtension(widget,parent);
-
-    return nullptr;
-}
+#endif  // QDataTablePropertySheetExtensionFactory_HPP
 

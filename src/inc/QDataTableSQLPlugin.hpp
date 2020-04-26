@@ -30,6 +30,10 @@
 
 # pragma once
 # include <QtUiPlugin/QDesignerCustomWidgetInterface>
+# include <QWidget>
+
+# include "QDataTablePropertySheetExtensionFactory.hpp"
+# include "QDataTablePropertySheetExtensionWidget.hpp"
 
 class QWidget;
 
@@ -58,11 +62,10 @@ public:
 
     QWidget *createWidget(QWidget *parent) override;
 
-    void initialize(QDesignerFormEditorInterface *core) override;
+    void initialize(QDesignerFormEditorInterface *formEditor) override;
 
 private:
     bool initialized = false;
-    QDataTablePropertySheetWidget * sheetWidget;
 };
 
 #endif

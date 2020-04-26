@@ -26,31 +26,37 @@
 // SOFTWARE.
 // --------------------------------------------------------------------------------
 
+#if 0
 # include "QDataTablePropertySheetExtension.hpp"
-# include "QDataTablePropertySheetWidget.hpp"
+# include "QDataTablePropertySheetExtensionWidget.hpp"
 
 QDataTablePropertySheetExtension::
-QDataTablePropertySheetExtension(QDataTablePropertySheetWidget * dlg, QObject * parent)
-    : QObject(parent)
+QDataTablePropertySheetExtension(
+      QDataTablePropertySheetExtensionWidget * dlg
+    , QObject *parent)
+    : QObject(parent )
     , sheetWidget(dlg)
 {
 }
 
-#if 0
 QObject *
 QDataTablePropertySheetExtension::createExtension(
     QObject *object, const
-    QString &iid,
+    QString &iid   ,
     QObject *parent) const
 {
-    if (iid != Q_TYPEID(QDesignerPropertySheetExtension))
-    return nullptr;
+    Q_UNUSED(iid)
+    Q_UNUSED(parent)
     
-    if (QDataTablePropertySheetWidget * widget && qobject_cast<
-    QDataTablePropertySheeWidget *>(object))
-    return new QDataTablePropertySheetExtension(widget,parent);
+    QDataTablePropertySheetExtensionWidget *widget = qobject_cast<
+    QDataTablePropertySheetExtensionWidget*>(object);
     
+//    if (widget && (iid == Q_TYPEID(QDesignerTaskMenuExtension)))
+//    return new QDataTablePropertySheetExtensionWidget(widget,parent);
+    
+    if (widget && (iid == Q_TYPEID(QDesignerPropertySheetExtension)))
+    return new QDataTablePropertySheetExtension(widget, parent);
+        
     return nullptr;
 }
-#enduf
-
+#endif

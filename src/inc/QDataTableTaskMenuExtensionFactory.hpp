@@ -30,7 +30,7 @@
 
 #pragma once
 
-# include "QDataTablePropertySheetWidget.hpp"
+# include "QDataTablePropertySheetExtensionWidget.hpp"
 
 # include <QtDesigner/QDesignerTaskMenuExtension>
 # include <QtDesigner/QExtensionFactory>
@@ -39,8 +39,6 @@ class QDataTableTaskMenuExtensionFactory :
     public QExtensionFactory
 {
     Q_OBJECT
-
-    QDataTablePropertySheetWidget * sheetWidget = nullptr;
 
 public:
     explicit QDataTableTaskMenuExtensionFactory(

@@ -25,34 +25,32 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 // --------------------------------------------------------------------------------
-# include "QDataTableTaskMenuExtension.hpp"
-# include "QDataTableTaskMenuExtensionFactory.hpp"
 
-# include "QDataTablePropertySheetExtension.hpp"
+#if 0
+# include "QDataTablePropertySheetExtensionFactory.hpp"
 # include "QDataTablePropertySheetExtensionWidget.hpp"
+# include "QDataTablePropertySheetExtension.hpp"
 
-QDataTableTaskMenuExtensionFactory::
-QDataTableTaskMenuExtensionFactory(
-      QExtensionManager *parent)
-    : QExtensionFactory (parent)
+QDataTablePropertySheetExtensionFactory::
+QDataTablePropertySheetExtensionFactory(QExtensionManager *parent)
+    : QExtensionFactory(parent)
 {
 }
 
 QObject *
-QDataTableTaskMenuExtensionFactory::createExtension(
+QDataTablePropertySheetExtensionFactory::createExtension(
     QObject *object, const
     QString &iid,
     QObject *parent) const
 {
-    Q_UNUSED(parent)
-    
-    if (iid != Q_TYPEID(QDesignerTaskMenuExtension))
-        return nullptr;
+    if (iid != Q_TYPEID(QDesignerPropertySheetExtension))
+    return nullptr;
 
     if (QDataTablePropertySheetExtensionWidget * widget = qobject_cast<
         QDataTablePropertySheetExtensionWidget * >(object))
-        return new QDataTableTaskMenuExtension(widget,parent);
+        return new QDataTablePropertySheetExtension(widget, parent);
 
     return nullptr;
 }
 
+#endif

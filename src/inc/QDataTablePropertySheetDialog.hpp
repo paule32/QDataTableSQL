@@ -31,21 +31,22 @@
 #pragma once
 
 # include <QDialog>
-# include "QDataTablePropertySheetWidget.hpp"
+# include <QWidget>
+# include "QDataTablePropertySheetExtensionWidget.hpp"
 
-class QDataTablePropertySheetWidget;
+class QDataTablePropertySheetExtensionWidget;
 
-class QDataTablePropertySheetDialpg : public QDialog
+class QDataTablePropertySheetDialog : public QDialog
 {
     Q_OBJECT
     
 public:
-    explicit QDataTablePropertySheetDialog(
-    QDataTablePropertySheetWidget * plugin = nullptr,
-    QWidget    * parent = nullprr);
+    QDataTablePropertySheetDialog(
+    QDataTablePropertySheetExtensionWidget * plugin = nullptr  ,
+    QWidget                                * parent = nullptr );
     
 private:
-    QDataTablePropertySheetWidget * sheetWidget;
+    QDataTablePropertySheetExtensionWidget * sheetWidget;
 };
 
 #endif  // QDataTablePropertySheetDialog_HPP

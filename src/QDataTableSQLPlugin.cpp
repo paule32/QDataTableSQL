@@ -28,7 +28,7 @@
 # include "QDataTableSQL.hpp"
 # include "QDataTableSQLPlugin.hpp"
 
-# include "QDataTablePropertySheetWidget.hpp"
+# include "QDataTablePropertySheetExtensionWidget.hpp"
 # include "QDataTablePropertySheetExtension.hpp"
 
 # include "QDataTableTaskMenuExtension.hpp"
@@ -52,8 +52,16 @@ void QDataTableSQLPlugin::initialize(QDesignerFormEditorInterface * formEditor)
     QExtensionManager * manager = formEditor->extensionManager();
     Q_ASSERT(manager != 0);
 
+    manager->registerExtensions(
+    new      QDataTableTaskMenuExtensionFactory(manager),
+    Q_TYPEID(QDesignerTaskMenuExtension));
+     
+#if 0
+    if (nullptr == sheetWidget)
+    sheetWidget  = new QDataTablePropertySheetExtensionWidget();
+    
     // access
-    QDesignerPropertySheetExtension * propertySheet  = 0;
+    QDesignerPropertySheetExtension * propertySheet  = nullptr;
     propertySheet = qt_extension<
     QDataTablePropertySheetExtension*>(manager, sheetWidget);
 
@@ -61,11 +69,12 @@ void QDataTableSQLPlugin::initialize(QDesignerFormEditorInterface * formEditor)
     manager->registerExtensions(
     new      QDataTableTaskMenuExtensionFactory(manager),
     Q_TYPEID(QDesignerTaskMenuExtension));
-    
+
     // property page
     manager->registerExtensions(
-    new      QDataTablePropertySheetExtension(propertySheet),
+    new      QDataTablePropertySheetExtensionFactory(manager),
     Q_TYPEID(QDesignerPropertySheetExtension));
+#endif
 
     initialized = true;
 }
@@ -77,8 +86,13 @@ bool QDataTableSQLPlugin::isInitialized() const
 
 QWidget * QDataTableSQLPlugin::createWidget(QWidget *parent)
 {
-    sql_widget = new QDataTableSQL(parent);
-    return  sql_widget ;
+    QDataTablePropertySheetExtensionWidget * prop = new
+    QDataTablePropertySheetExtensionWidget(parent);
+
+//    QDataTableSQL * prop = new
+//    QDataTableSQL(parent);
+    
+    return prop;
 }
 
 QString QDataTableSQLPlugin::name() const
@@ -113,20 +127,23 @@ bool QDataTableSQLPlugin::isContainer() const
 
 QString QDataTableSQLPlugin::domXml() const
 {
-    return QLatin1String("<ui language=\"c++\">                 \
-    <widget class=\"QDataTableSQL\" name=\"dataTableSQL\"/>     \
-        <customwidgets>                                         \
-            <customwidget>                                      \
-                <class>QDataTableSQL</class>                    \
-                <propertyspecifications>                        \
-                    <tooltip name=\"state\">QDataTableSQL state</tooltip> \
-                </propertyspecifications>                       \
-            </customwidget>                                     \
-        </customwidgets>                                        \
-    </ui>");
+    return QLatin1String(
+    "<ui language=\"c++\">\n"
+    "<widget class=\"QDataTableSQL\" name=\"dataTableSQL\"/>\n"
+    "   <customwidgets>\n"
+    "       <customwidget>\n"
+    "           <class>QDataTableSQL</class>\n"
+    "           <propertyspecifications>\n"
+    "               <tooltip name=\"state\">QDataTableSQL state</tooltip>\n"
+    "           </propertyspecifications>\n"
+    "       </customwidget>\n"
+    "   <customwidgets>\n"
+    "</widget>\n"
+    "</ui>\n");
 }
 
 QString QDataTableSQLPlugin::includeFile() const
 {
     return QStringLiteral("QDataTableSQL.hpp");
 }
+
